@@ -16,11 +16,12 @@ class="active"
         <h1> The Dictionary App</h1>
         <div class="row">
             <div class="col-sm-6">
-                <form action="">
+                <form action="#" method="POST">
                     <div class="form-group">
                         <label for="word">Word:</label>
                         <input type="text" class="form-control" 
-                        id="word" placeholder="Type in the word here:">
+                        id="word" placeholder="Type in the word here:"
+                        name="word" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block 
                     btn-lg">Submit</button>
@@ -30,8 +31,10 @@ class="active"
                 <form action="">
                     <div class="form-group">
                         <label for="word">Meaning:</label>
-                        <textarea class="form-control" id="word" rows="4" placeholder="The meaning of the word shows here" disabled>
-                        </textarea>
+                        <textarea 
+                        class="form-control" 
+                        id="word" rows="4" 
+                        placeholder="The meaning of the word shows here" disabled>{{ user_response }}</textarea>
                     </div>
                 </form>             
             </div>
