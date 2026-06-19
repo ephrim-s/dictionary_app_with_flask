@@ -15,16 +15,16 @@ mysql = MySQL(app)
 def index():
     user_response = ''
     if request.method == 'POST':
+        user_response = request.form['word']
         conn = mysql.connection
         cur = conn.cursor()
-        word = request.form['word']
-        cur.execute('select meaning from word where word=%s', (word,))
+        cur.execute('select meaning from word where word=%s', (user_response,))
         rv = cur.fetchall()
-        print(rv)
+
         if rv:
-            user_response = f"{word}: \n{rv[0][0]}"
+            user_response = f"{user_response}: \n{rv[0][0]}"
         else:
-            user_response = f" sorry \''{word}\'' meaning was not found"
+            user_response = f" sorry \''{user_response}\'' meaning was not found"
     return render_template('index.html', user_response = user_response)
 
 @app.route('/dashboard')
