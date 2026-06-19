@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request
 from flask_mysqldb import MySQL
+import MySQLdb.cursors
 import datetime
 
 app = Flask(__name__)
@@ -17,19 +18,27 @@ def index():
     if request.method == 'POST':
         user_response = request.form['word']
         conn = mysql.connection
-        cur = conn.cursor()
+        cur = conn.cursor(MySQLdb.cursors.DictCursor)
         cur.execute('select meaning from word where word=%s', (user_response,))
-        rv = cur.fetchall()
+        rv = cur.fetchone()
+        print(rv)
 
         if rv:
-            user_response = f"{user_response}: \n{rv[0][0]}"
+            user_response = f"{user_response}: \n{rv['meaning']}"
         else:
             user_response = f" sorry \''{user_response}\'' meaning was not found"
     return render_template('index.html', user_response = user_response)
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    conn = mysql.connection
+    cur = conn.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute('select * from word')
+    rv = cur.fetchall()
+    for item in rv:
+        print(item)
+        
+    return render_template('dashboard.html', words=rv)
 
 
 if __name__ == '__main__':

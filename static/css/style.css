@@ -8,6 +8,8 @@ body {
 nav.navbar {
   background-color: #34325e;
 }
+
+/* Home Page */
 a.navbar-brand {
   font-size: 24px;
   font-weight: bold;
@@ -57,6 +59,43 @@ textarea.form-control {
   background-color: #ffede5; 
 } 
 
+/* Dashboard Page */
+
+.row > h2 {
+  margin-top: -50px;
+  margin-left: 275px;
+  color: #343253;
+  font-family: Georgia, serif;
+  font-weight: bold;
+}
+.sidenav {
+  height: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  border-right: solid black 5px;
+  overflow-x: hidden;
+}
+
+.sidenav > a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.main {
+  overflow: scroll;
+  height: 70vh;
+  padding-left: 40px;
+}
+.side-active {
+  text-shadow: 2px 2px;
+}
+
+.sidenav > div {
+  margin-left: -15;
+}
 .footer {
   position: absolute;
   bottom: 0;
