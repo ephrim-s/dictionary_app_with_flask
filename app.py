@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
+import json
 import datetime
 
 app = Flask(__name__)
@@ -37,8 +38,21 @@ def dashboard():
     rv = cur.fetchall()
     for item in rv:
         print(item)
-        
+
     return render_template('dashboard.html', words=rv)
+
+
+@app.route('/word', methods=['POST'])
+def add_word():
+    word = request.get_json['word']
+    meaning = request.get_json['meaning']
+    conn = mysql.connection
+    cur = conn.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute('insert into word(word, meaning) values(%s, %s)', (word, meaning))
+    conn.commit()
+    cur.close()
+
+    return json.dumps('success')      
 
 
 if __name__ == '__main__':
