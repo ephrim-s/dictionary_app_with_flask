@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, jsonify
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import json
@@ -35,24 +35,26 @@ def dashboard():
     conn = mysql.connection
     cur = conn.cursor(MySQLdb.cursors.DictCursor)
     cur.execute('select * from word')
-    rv = cur.fetchall()
-    for item in rv:
-        print(item)
+    rv = cur.fetchall()   
 
     return render_template('dashboard.html', words=rv)
 
 
 @app.route('/word', methods=['POST'])
 def add_word():
-    word = request.get_json['word']
-    meaning = request.get_json['meaning']
+    req = request.get_json(silent=True)
+    if not req:
+        return jsonify({'error': 'Expected JSON body'}), 415
+
+    word = req['word']
+    meaning = req['meaning']
     conn = mysql.connection
     cur = conn.cursor(MySQLdb.cursors.DictCursor)
     cur.execute('insert into word(word, meaning) values(%s, %s)', (word, meaning))
     conn.commit()
     cur.close()
 
-    return json.dumps('success')      
+    return jsonify({'status': 'success'})      
 
 
 if __name__ == '__main__':

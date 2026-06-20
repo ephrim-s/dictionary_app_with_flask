@@ -10,7 +10,9 @@ window.onload = function() {
         $('#word-form').show();
     });
 
-    $('#word-form').submit(function() {
+    $('#word-form').submit(function(event) {
+        event.preventDefault();
+
         let word = $('#word').val();
         let meaning = $('#meaning').val();
 
@@ -22,7 +24,7 @@ window.onload = function() {
                 'word': word,
                 'meaning': meaning,
             }),
-            contentType: 'application/json, charset=UTF-8',
+            contentType: 'application/json; charset=UTF-8',
             success: function(data){
                 location.reload();
             },
