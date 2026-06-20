@@ -61,7 +61,7 @@ def delete_word(id):
     word_id = id    
     conn = mysql.connection
     cur = conn.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute('delete from word wehre id=%s', (word_id))
+    cur.execute('delete from word where id=%s', (word_id,))
     conn.commit()
     cur.close()
 

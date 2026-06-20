@@ -1,6 +1,7 @@
 window.onload = function() {
     $('#word-form').hide();
-
+    $('.edit-word, .edit-meaning').hide();
+    
     $('#word-index').click(function() {
         location.reload();
     });
@@ -60,18 +61,14 @@ window.onload = function() {
     $('.edit').click(function(event) {
         event.preventDefault();
 
-        let word = $('#word').val();
-        let meaning = $('#meaning').val();
+        let parent = $(this).parents('tr');
+        parent.find('.word-word, .word-meaning').hide();
+        parent.find('.edit-word, .edit-meaning').show();
+        
 
         $.ajax({
-            url: '/word',
+            url: '/word/' + word_id + '/delete',
             type: 'POST',
-            dataType: 'json',
-            data: JSON.stringify({
-                'word': word,
-                'meaning': meaning,
-            }),
-            contentType: 'application/json; charset=UTF-8',
             success: function(data){
                 location.reload();
             },
