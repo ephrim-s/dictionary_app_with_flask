@@ -54,7 +54,18 @@ def add_word():
     conn.commit()
     cur.close()
 
-    return jsonify({'status': 'success'})      
+    return jsonify({'status': 'success'}) 
+
+@app.route('/word/<id>/delete', methods=['POST'])
+def delete_word(id):
+    word_id = id    
+    conn = mysql.connection
+    cur = conn.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute('delete from word wehre id=%s', (word_id))
+    conn.commit()
+    cur.close()
+
+    return jsonify({'status': 'success'})     
 
 
 if __name__ == '__main__':
