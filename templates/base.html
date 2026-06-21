@@ -15,12 +15,10 @@
     />
     <script src="{{ url_for('static', filename='js/jquery.js')}}"
     ></script>
-    <script src="{{ url_for('static', filename='js/scripts.js')}}"
-    ></script>
     <script
       src=".{{ url_for('static', filename='js/bootstrap.js') }}"
-      async
-      defer
+    ></script>
+    <script src="{{ url_for('static', filename='js/scripts.js')}}"
     ></script>
     {% block title %}{% endblock %}
   </head>
@@ -29,17 +27,19 @@
     {% if messages %}
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body text-center">          
-          {% for message in messages %}
-          <p>{{ message }}</p>
-          {% endfor %}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default"
-          data-dismiss="modal">Close</button>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body text-center">          
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+            data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>

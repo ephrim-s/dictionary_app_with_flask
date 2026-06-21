@@ -6,7 +6,7 @@ import datetime
 
 app = Flask(__name__)
 
-app.secrete_key = 'secrete'
+app.secret_key = 'uniqu&secrete'
 app.config['MYSQL_HOST'] = 'Localhost'
 app.config['MYSQL_DB'] = 'dictionary'
 app.config['MYSQL_USER'] = 'ephrim'
@@ -50,10 +50,11 @@ def add_word():
     if not req:
         return jsonify({'error': 'Expected JSON body'}), 415
 
-    word = req['word']
-    meaning = req['meaning']
+    word = req['word'].strip()
+    meaning = req['meaning'].strip()
     if word == '' or meaning == '':
         flash("Please fill in all fields, to add new word")
+        return jsonify({'status': 'error'}), 400
     else:
         conn = mysql.connection
         cur = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -81,10 +82,11 @@ def edit_word(id):
         return jsonify({'error': 'Expected JSON body'}), 415   
    
     word_id = id    
-    word = req['word']
-    meaning = req['meaning']
+    word = req['word'].strip()
+    meaning = req['meaning'].strip()
     if word == '' or meaning == '':
         flash("Please fill in all fields, to update a word")
+        return jsonify({'status': 'error'}), 400
     else:
         conn = mysql.connection
         cur = conn.cursor(MySQLdb.cursors.DictCursor)

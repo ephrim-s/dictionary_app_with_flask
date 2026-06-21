@@ -34,7 +34,7 @@ window.onload = function() {
                 location.reload();
             },
             error: function(err){
-                console.log(err);
+                location.reload();
             }
         });
         
@@ -101,7 +101,7 @@ window.onload = function() {
                 location.reload();
             },
             error: function(err){
-                console.log(err);
+                location.reload();
             }
         });
     });
