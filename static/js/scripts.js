@@ -1,4 +1,7 @@
 window.onload = function() {
+    if ($('#myModal').length && $.fn.modal) {
+        $('#myModal').modal('show');
+    }
     $('#word-form').hide();
     $('.edit-word, .edit-meaning').hide();
     $('.update, .cancel').parent().hide();
