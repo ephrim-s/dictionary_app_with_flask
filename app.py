@@ -65,6 +65,23 @@ def delete_word(id):
     conn.commit()
     cur.close()
 
+    return jsonify({'status': 'success'}) 
+    
+@app.route('/word/<id>/edit', methods=['POST'])
+def edit_word(id):
+    req = request.get_json(silent=True)
+    if not req:
+        return jsonify({'error': 'Expected JSON body'}), 415   
+   
+    word_id = id    
+    word = req['word']
+    meaning = req['meaning']
+    conn = mysql.connection
+    cur = conn.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute('update word set word=%s, meaning=%s where id=%s', (word, meaning, word_id,))
+    conn.commit()
+    cur.close()
+
     return jsonify({'status': 'success'})     
 
 

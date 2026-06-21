@@ -1,6 +1,7 @@
 window.onload = function() {
     $('#word-form').hide();
     $('.edit-word, .edit-meaning').hide();
+    $('.update, .cancel').parent().hide();
     
     $('#word-index').click(function() {
         location.reload();
@@ -39,6 +40,7 @@ window.onload = function() {
         location.reload();
     });
 
+
     $('.delete').click(function(event) {
         event.preventDefault();
 
@@ -64,11 +66,33 @@ window.onload = function() {
         let parent = $(this).parents('tr');
         parent.find('.word-word, .word-meaning').hide();
         parent.find('.edit-word, .edit-meaning').show();
+        parent.find('.edit, .delete').parent().hide();
+        parent.find('.update, .cancel').parent().show();     
         
+    });
+
+    $('.cancel').click(function() {
+        location.reload();
+    });
+
+    $('.update').click(function() {
+        let parent = $(this).parents('tr');
+        parent.find('.edit-word, .edit-meaning').show();
+        let word = parent.find('input').val();
+        let meaning = parent.find('textarea').val();
+        let word_id = $(this).attr('id');
+
+         
 
         $.ajax({
-            url: '/word/' + word_id + '/delete',
+            url: '/word/' + word_id + '/edit',
             type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({
+                'word': word,
+                'meaning': meaning
+            }),
+            contentType: 'application/json, charset=UTF-8',
             success: function(data){
                 location.reload();
             },
@@ -76,6 +100,5 @@ window.onload = function() {
                 console.log(err);
             }
         });
-        
     });
 };

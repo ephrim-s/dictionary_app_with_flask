@@ -56,10 +56,12 @@ class="active"
                     <td>{{ word['id'] }}</td>                    
                     <td class="word-word">{{ word['word'] }}</td>                    
                     <td class="word-meaning">{{ word['meaning'] }}</td>                    
-                    <td class="edit-word"><input></td>                    
-                    <td class="edit-meaning"><textarea></textarea></td>                    
+                    <td class="edit-word"><input type="text" value="{{ word['word'] }}"></td>                    
+                    <td class="edit-meaning"><textarea>{{ word['meaning'] }}</textarea></td>                    
                     <td><button class="btn btn-sm btn-success btn-block edit" id="{{ word['id']}}">Edit</button></td>                    
                     <td><button class="btn btn-sm btn-danger btn-block delete" id="{{ word['id']}}">Delet</button></td>                    
+                    <td><button class="btn btn-sm btn-primary btn-block update" id="{{ word['id']}}">Update</button></td>                    
+                    <td><button class="btn btn-sm btn-warning btn-block cancel" id="{{ word['id']}}">Cancel</button></td>                    
                 </tr>
                 {% else %}
                 <tr>
