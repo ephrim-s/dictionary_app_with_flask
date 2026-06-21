@@ -92,7 +92,7 @@ window.onload = function() {
                 'word': word,
                 'meaning': meaning
             }),
-            contentType: 'application/json, charset=UTF-8',
+            contentType: 'application/json; charset=UTF-8',
             success: function(data){
                 location.reload();
             },
