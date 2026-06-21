@@ -75,12 +75,13 @@ window.onload = function() {
         location.reload();
     });
 
-    $('.update').click(function() {
+    $('.update-form').submit(function(event) {
+        event.preventDefault();
+
         let parent = $(this).parents('tr');
-        parent.find('.edit-word, .edit-meaning').show();
         let word = parent.find('input').val();
         let meaning = parent.find('textarea').val();
-        let word_id = $(this).attr('id');
+        let word_id = parent.find('.update').attr('id');
 
          
 
