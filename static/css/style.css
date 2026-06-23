@@ -5,6 +5,7 @@ html {
 body {
   margin-bottom: 45px; /* Margin bottom by footer height */
 }
+
 nav.navbar {
   background-color: #34325e;
 }

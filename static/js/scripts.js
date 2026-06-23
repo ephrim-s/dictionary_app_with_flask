@@ -9,6 +9,11 @@ window.onload = function() {
     $('#word-index').click(function() {
         location.reload();
     });
+
+    $('#flash-alert-close').click(function(){
+        $('#flash-alert').hide();
+    })
+
     $('#word-add').click(function() {
         $('#word-index').removeClass('side-active');
         $(this).addClass('side-active');
