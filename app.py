@@ -61,6 +61,7 @@ def add_word():
         cur.execute('insert into word(word, meaning) values(%s, %s)', (word, meaning))
         conn.commit()
         cur.close()
+        flash("Word succeffuly add")
 
     return jsonify({'status': 'success'}) 
 
@@ -72,6 +73,7 @@ def delete_word(id):
     cur.execute('delete from word where id=%s', (word_id,))
     conn.commit()
     cur.close()
+    flash("Word succeffuly deleted")
 
     return jsonify({'status': 'success'}) 
     
@@ -93,6 +95,7 @@ def edit_word(id):
         cur.execute('update word set word=%s, meaning=%s where id=%s', (word, meaning, word_id,))
         conn.commit()
         cur.close()
+        flash("Word succeffuly updated")
 
     return jsonify({'status': 'success'})     
 

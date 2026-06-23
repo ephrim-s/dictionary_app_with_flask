@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
-      href=".{{ url_for('static', filename='css/bootstrap.css') }}"
+      href="{{ url_for('static', filename='css/bootstrap.css') }}"
     />
     <link
       rel="stylesheet"
-      href=".{{ url_for('static', filename='css/style.css') }}"
+      href="{{ url_for('static', filename='css/style.css') }}"
     />
     <script src="{{ url_for('static', filename='js/jquery.js')}}"
     ></script>
     <script
-      src=".{{ url_for('static', filename='js/bootstrap.js') }}"
+      src="{{ url_for('static', filename='js/bootstrap.js') }}"
     ></script>
     <script src="{{ url_for('static', filename='js/scripts.js')}}"
     ></script>
@@ -25,23 +25,18 @@
   <body>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body text-center">          
-            {% for message in messages %}
-            <p>{{ message }}</p>
-            {% endfor %}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default"
-            data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
+    <div
+      class="alert alert-info alert-dismissible"
+      id="flash-alert"
+      role="alert"
+      style="position: fixed; top: 20px; right: 20px; z-index: 2000; min-width: 280px; max-width: 420px;"
+    >
+      <button type="button" class="close" id="flash-alert-close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {% for message in messages %}
+      <p class="mb-0">{{ message }}</p>
+      {% endfor %}
     </div>
     {% endif %}
     {% endwith %}
