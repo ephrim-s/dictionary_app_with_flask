@@ -3,6 +3,7 @@ window.onload = function() {
         $('#myModal').modal('show');
     }
     $('#word-form').hide();
+    $('#logo-form').hide();
     $('.edit-word, .edit-meaning').hide();
     $('.update, .cancel').parent().hide();
     
@@ -15,9 +16,42 @@ window.onload = function() {
     })
 
     $('#word-add').click(function() {
-        $('#word-index').removeClass('side-active');
         $(this).addClass('side-active');
+        $('#logo-add, #word-index').removeClass('side-active');
+        $('#logo-form').hide();
         $('#word-form').show();
+    });
+
+    $('#logo-add').click(function() {
+        $(this).addClass('side-active');
+        $('#word-index, #word-add').removeClass('side-active');
+        $('#word-form').hide();
+        $('#logo-form').show();
+    });
+    $('#logo-form').submit(function(event) {
+        event.preventDefault();
+
+        let data = new FormData();
+        data.append('file', $('#logo')[0].files[0]);
+
+        $.ajax({
+            url: '/add_logo',
+            type: 'POST',
+            data: data,
+            enctype: 'multipart/form-data'
+            process: false,
+            contentType: false,
+            success: function(data){
+                location.reload();
+            },
+            error: function(err){
+                location.reload();
+            }
+        });
+        
+    });
+    $('#logo-cancel').click(function() {
+        location.reload();
     });
 
     $('#word-form').submit(function(event) {
