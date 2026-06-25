@@ -38,7 +38,7 @@ window.onload = function() {
             url: '/add_logo',
             type: 'POST',
             data: data,
-            enctype: 'multipart/form-data'
+            enctype: 'multipart/form-data',
             process: false,
             contentType: false,
             success: function(data){
