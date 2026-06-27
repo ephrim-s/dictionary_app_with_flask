@@ -31,15 +31,21 @@ window.onload = function() {
     $('#logo-form').submit(function(event) {
         event.preventDefault();
 
+        const fileInput = $('#logo')[0];
+        if (!fileInput || !fileInput.files.length) {
+            location.reload();
+            return;
+        }
+
         let data = new FormData();
-        data.append('file', $('#logo')[0].files[0]);
+        data.append('file', fileInput.files[0]);
 
         $.ajax({
             url: '/add_logo',
             type: 'POST',
             data: data,
             enctype: 'multipart/form-data',
-            process: false,
+            processData: false,
             contentType: false,
             success: function(data){
                 location.reload();

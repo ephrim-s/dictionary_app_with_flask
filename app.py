@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, request, jsonify, flash
+from flask import Flask, render_template, url_for, request, jsonify, flash, current_app
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import json
 import datetime
+import os
 
 app = Flask(__name__)
 
@@ -99,6 +100,23 @@ def edit_word(id):
 
     return jsonify({'status': 'success'})     
 
+@app.route('/add_logo', methods=['POST'])
+def add_logo():
+    image = request.files.get('file') or request.files.get('logo')
+
+    if image and image.filename:
+        try:
+            os.makedirs(os.path.join(current_app.root_path, 'static', 'images'), exist_ok=True)
+            filepath = os.path.join(current_app.root_path, 'static', 'images', 'logo.png')
+            image.save(filepath)
+            flash('Logo uploaded successfully')
+            return jsonify({'status': 'success'})
+        except Exception as exc:
+            flash('Logo upload failed')
+            return jsonify({'status': 'error', 'message': str(exc)}), 500
+
+    flash('Please select an image to upload')
+    return jsonify({'status': 'error'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
